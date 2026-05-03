@@ -18,6 +18,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.24.3'
           channel: 'stable'
           cache: true
 
@@ -29,9 +30,9 @@ jobs:
 
       # 4. Build Flutter Web
       - name: Build Flutter Web
-        run: |
-          export DART_VM_OPTIONS="--old_gen_heap_size=3072"
-          flutter build web --release --web-renderer html --no-tree-shake-icons
+        env:
+          DART_VM_OPTIONS: "--old_gen_heap_size=3072"
+        run: flutter build web --release --no-tree-shake-icons
 
       # 5. Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
